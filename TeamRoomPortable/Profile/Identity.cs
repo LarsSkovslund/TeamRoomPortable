@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using PropertyChanged;
+using System.Collections.Generic;
 
 namespace TeamRoomPortable.Profile
 {
-	public class Identity
+    [ImplementPropertyChanged]
+    public class Identity
 	{
 		public string IdentityType { get; set; }
 		public string FriendlyDisplayName { get; set; }

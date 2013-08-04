@@ -1,6 +1,8 @@
-﻿namespace TeamRoomPortable.Profile
+﻿using PropertyChanged;
+namespace TeamRoomPortable.Profile
 {
-	public class AllTimeZone
+    [ImplementPropertyChanged]
+    public class AllTimeZone
 	{
 		public string DisplayName { get; set; }
 		public string Id { get; set; }

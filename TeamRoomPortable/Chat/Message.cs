@@ -1,8 +1,10 @@
 ﻿using System;
 using Newtonsoft.Json;
+using PropertyChanged;
 
 namespace TeamRoomPortable.Chat
 {
+    [ImplementPropertyChanged]
 	public class Message<TMessageType>
 	{
 		[JsonProperty("id")]
@@ -22,5 +24,5 @@ namespace TeamRoomPortable.Chat
 
 		[JsonProperty("postedByUserTfid")]
 		public string PostedByUserTfid { get; set; }
-	}
+    }
 }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using TeamRoomPortable.Chat;
 using TeamRoomPortable.Profile;
+using TeamRoomPortable.RoomModel;
 
 namespace TeamRoomPortable
 {
@@ -26,7 +27,10 @@ namespace TeamRoomPortable
 			public const string MessagesWithFilter = "/DefaultCollection/_apis/Chat/rooms/{0}/Messages?$filter={1}";
 			public const string Users = "/DefaultCollection/_apis/Chat/rooms/{0}/Users";
 			public const string SpecificUser = "/DefaultCollection/_apis/Chat/rooms/{0}/Users/{1}";
+
+            // Below resource are NOT part of the Chat API but are unsuported resources used by web access internally.
 			public const string UserProfile = "/DefaultCollection/_api/_common/GetUserProfile?__v=4";
+            public const string RoomModel = "/DefaultCollection/_api/_ChatRoom/GetRoomModel?__v=4&roomId={0}";
 		}
 
 		private readonly Uri _tfsBaseUri;
@@ -48,9 +52,23 @@ namespace TeamRoomPortable
 			_messageHandler = new BasicAuthenticationMessageHandler(userName, password);
 		}
 
+        /// <summary>
+        /// Get a list of user informations such as email, display etc for a given team room.
+        /// </summary>
+        /// <remarks>This is NOT part of the official Chat API but a resource designed for WebAccess and can change at any time.</remarks>
+        /// <param name="room"></param>
+        /// <returns>Members and their information with access to team room</returns>
+        public async Task<IEnumerable<Member>> GetTeamMembersAsync(TeamRoom room)
+        {
+            var model = await GetAsync<RoomModelRootObject>(GetUri(Resources.RoomModel, room.Id));
+
+            return model.RoomModel.Members;
+        }
+
 		/// <summary>
 		/// Get profile information on signed in user.
 		/// </summary>
+        /// <remarks>This is NOT part of the official Chat API but a resource designed for WebAccess and can change at any time.</remarks>
 		/// <returns>Profile information or null if not found</returns>
 		public async Task<UserProfile> GetUserProfileAsync()
 		{
@@ -190,7 +208,7 @@ namespace TeamRoomPortable
 
         protected virtual async Task<TResult> PostAsync<TResult>(object content, Uri requestUri)
 		{
-			var client = new HttpClient(_messageHandler);
+            var client = GetHttpClient();
 
 			var postMessage = JsonConvert.SerializeObject(content);
 			var response = await client.PostAsync(requestUri, new StringContent(postMessage, Encoding.UTF8, "application/json"));
@@ -202,7 +220,7 @@ namespace TeamRoomPortable
 
         protected virtual async Task<TResult> PutAsync<TResult>(object content, Uri requestUri)
 		{
-			var client = new HttpClient(_messageHandler);
+            var client = GetHttpClient();
 
 			var postMessage = JsonConvert.SerializeObject(content);
 			var response = await client.PutAsync(requestUri, new StringContent(postMessage, Encoding.UTF8, "application/json"));
@@ -214,7 +232,7 @@ namespace TeamRoomPortable
 
         protected virtual async Task DeleteAsync(Uri requestUri)
 		{
-			var client = new HttpClient(_messageHandler);
+            var client = GetHttpClient();
 
 			var response = await client.DeleteAsync(requestUri);
 			response.EnsureSuccessStatusCode();
@@ -222,11 +240,21 @@ namespace TeamRoomPortable
 
         protected virtual async Task<TResult> GetAsync<TResult>(Uri requestUri)
 		{
-			var client = new HttpClient(_messageHandler);
+            var client = GetHttpClient();
 
 			var result = await client.GetStringAsync(requestUri);
 			return JsonConvert.DeserializeObject<TResult>(result);
 		}
+
+        protected virtual HttpClient GetHttpClient()
+        {
+            return new HttpClient(GetMessageHandler());
+        }
+
+        protected virtual HttpMessageHandler GetMessageHandler()
+        {
+            return _messageHandler;
+        }
 
 	    private Uri GetUri(string resource, params object[] args)
 	    {

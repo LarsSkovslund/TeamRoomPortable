@@ -11,6 +11,7 @@ namespace TeamRoomPortable
         /// <summary>
         /// Gets profile information from logged in TFS user.
         /// </summary>
+        /// <remarks>This is NOT part of the official Chat API but a resource designed for WebAccess and can change at any time.</remarks>
         UserProfile Profile { get; }
 
         /// <summary>

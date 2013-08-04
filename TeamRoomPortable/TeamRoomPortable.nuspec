@@ -26,6 +26,11 @@ using this tokenized nuspec file.
     <projectUrl>https://github.com/LarsSkovslund/TeamRoomPortable</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A portable class library for building TFS Team Room extensions. Supports Silverlight 5, .NET 4.+, Windows Phone 7.5, Windows Phone 8, Windows Store</description>
+    <dependencies>
+      <dependency id="Microsoft.Bcl.Async" version="1.0.16"/>
+      <dependency id="Microsoft.Net.Http" version="2.2.13"/>
+      <dependency id="Newtonsoft.Json" version="5.0.6"/>
+    </dependencies>
   </metadata>
   <files />
 </package>

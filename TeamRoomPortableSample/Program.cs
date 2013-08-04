@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using TeamRoomPortable;
 using TeamRoomPortable.Chat;
@@ -22,7 +23,7 @@ namespace TeamRoomPortableSample
     {
         public async Task<ITeamRoomClient> GetClient()
         {
-             return await TeamRoomClientFactory.Create(
+            return await TeamRoomClientFactory.Create(
                  "{Team Foundation Service Account}", 
                  "{Alternative Credentials - User name (secondary)}", 
                  "{password}"
@@ -40,16 +41,21 @@ namespace TeamRoomPortableSample
         public async Task QueryMessagesFromTeamRoom()
         {
             var client = await GetClient();
-            var myTeamRoom = await client.GetTeamRoomAsync("{team room}");
+            var myTeamRoom = await client.GetTeamRoomAsync("{TEAM ROOM NAME GOES HERE}");
             var roomSession = await client.Join(myTeamRoom);
 
             // Get todays messages
-            var messages = await roomSession.GetMessagesAsync();
+            var messages = await roomSession.GetMessagesAsync(DateTime.Today.AddDays(-3), DateTime.Today.AddDays(-2));
             foreach (var message in messages)
             {
                 switch (message.MessageType)
                 {
                     case MessageType.Normal:
+                        var postedBy = roomSession.Members.FirstOrDefault(m => m.Id == message.PostedByUserTfid);
+                        if (postedBy != null)
+                            Console.WriteLine("Posted by: {0}", postedBy.DisplayName);
+                        else // This will most likely be TFS service accounts identity.
+                            Console.WriteLine("Posted by: unknown identity {0}", message.PostedByUserTfid);
                         DisplayChatMessage(message.ConvertMessageTo<string>());
                         break;
 

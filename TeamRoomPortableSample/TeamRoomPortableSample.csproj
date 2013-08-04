@@ -45,9 +45,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\TeamRoomPortable\TeamRoomPortable.csproj">
       <Project>{39108f9e-c5a4-42e4-8891-7c604b29a297}</Project>
       <Name>TeamRoomPortable</Name>

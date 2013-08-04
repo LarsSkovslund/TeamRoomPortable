@@ -1,6 +1,8 @@
-﻿namespace TeamRoomPortable.Profile
+﻿using PropertyChanged;
+namespace TeamRoomPortable.Profile
 {
-	public class DateFormat
+    [ImplementPropertyChanged]
+    public class DateFormat
 	{
 		public string Format { get; set; }
 		public string DisplayFormat { get; set; }

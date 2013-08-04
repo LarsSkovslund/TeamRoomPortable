@@ -53,9 +53,10 @@ namespace TeamRoomPortable
         {
             if (teamRoom == null) throw new ArgumentNullException("teamRoom");
 
+            var members = await _api.GetTeamMembersAsync(teamRoom);
             await _api.JoinTeamRoomAsync(teamRoom, Profile);
 
-            return new TeamRoomSession(_api, teamRoom, Profile);
+            return new TeamRoomSession(_api, teamRoom, Profile, members);
         }
 
         public async Task<IEnumerable<User>> GetUsersAsync(TeamRoom teamRoom)

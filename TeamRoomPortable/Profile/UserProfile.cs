@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
+using PropertyChanged;
 
 namespace TeamRoomPortable.Profile
 {
 	/// <summary>
 	/// Represents the currently logged on users profile
 	/// </summary>
-	public class UserProfile
+    [ImplementPropertyChanged]
+    public class UserProfile
 	{
 		[JsonProperty("identity")]
 		public Identity Identity { get; set; }

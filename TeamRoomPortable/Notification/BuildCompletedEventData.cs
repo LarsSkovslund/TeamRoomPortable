@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
+using PropertyChanged;
 
 namespace TeamRoomPortable.Notification
 {
+    [ImplementPropertyChanged]
     public class BuildCompletedEventData
     {
         [JsonProperty("buildNumber")]

@@ -1,6 +1,8 @@
-﻿namespace TeamRoomPortable.Profile
+﻿using PropertyChanged;
+namespace TeamRoomPortable.Profile
 {
-	public class UserPreferences
+    [ImplementPropertyChanged]
+    public class UserPreferences
 	{
 		public string CustomDisplayName { get; set; }
 		public string PreferredEmail { get; set; }

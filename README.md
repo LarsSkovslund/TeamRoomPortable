@@ -16,8 +16,15 @@ Look at the TeamRoomPortableSample for how to use this, enjoy.
 ## How do I install it? ##
 PM> Install-Package TeamRoomPortable
 
+## Change log ##
+1.0.1 - August 4, 2013
+ 
++	All data object now implements INotifyPropertyChanged
 
++	Removed NuGet Package Restore from project as it does not play nicely together with Microsoft.Bcl.Async
 
++	The API now supports querying user information for all members of a given team room, this is especially useful when identifying who posted a given message.
+	
 
 
 

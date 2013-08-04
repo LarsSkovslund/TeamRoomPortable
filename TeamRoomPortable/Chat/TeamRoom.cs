@@ -1,8 +1,10 @@
 ﻿using System;
 using Newtonsoft.Json;
+using PropertyChanged;
 
 namespace TeamRoomPortable.Chat
 {
+    [ImplementPropertyChanged]
 	public class TeamRoom
 	{
 		[JsonProperty("id")]

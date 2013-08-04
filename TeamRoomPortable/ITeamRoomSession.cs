@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TeamRoomPortable.Chat;
+using TeamRoomPortable.RoomModel;
 
 namespace TeamRoomPortable
 {
@@ -18,9 +19,14 @@ namespace TeamRoomPortable
         string Description { get; }
 
         /// <summary>
+        /// Gets all members with access to this team room.
+        /// </summary>
+        /// <remarks>This is NOT part of the official Chat API but a resource designed for WebAccess and can change at any time.</remarks>
+        IEnumerable<Member> Members { get; }
+
+        /// <summary>
         /// Leave team room.
         /// </summary>
-        /// <returns></returns>
         Task Leave();
 
         /// <summary>

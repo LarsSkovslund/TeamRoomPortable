@@ -1,6 +1,8 @@
-﻿namespace TeamRoomPortable.Profile
+﻿using PropertyChanged;
+namespace TeamRoomPortable.Profile
 {
-	public class AllTheme
+    [ImplementPropertyChanged]
+    public class AllTheme
 	{
 		public string DisplayName { get; set; }
 		public string ThemeName { get; set; }
