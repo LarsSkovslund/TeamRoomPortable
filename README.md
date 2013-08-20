@@ -17,6 +17,13 @@ Look at the TeamRoomPortableSample for how to use this, enjoy.
 PM> Install-Package TeamRoomPortable
 
 ## Change log ##
+1.2.0 - August 20, 2013
+
++	Added support for Work Item Change Events.
+
++	Versioning now follows [SemVer](semver.org).
+
+
 1.0.1 - August 4, 2013
  
 +	All data object now implements INotifyPropertyChanged

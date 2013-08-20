@@ -45,7 +45,7 @@ namespace TeamRoomPortableSample
             var roomSession = await client.Join(myTeamRoom);
 
             // Get todays messages
-            var messages = await roomSession.GetMessagesAsync(DateTime.Today.AddDays(-3), DateTime.Today.AddDays(-2));
+            var messages = await roomSession.GetMessagesAsync();
             foreach (var message in messages)
             {
                 switch (message.MessageType)
@@ -96,6 +96,11 @@ namespace TeamRoomPortableSample
                 case MessageNotificationType.CodeReviewChangedEvent:
                     var review = message.Content.ToNotificationType<CodeReviewChangedEventData>();
                     Console.WriteLine("Code review requestor: {0}", review.Requestor);
+                    break;
+
+                case MessageNotificationType.WorkItemChangedEvent:
+                    var workItem = message.Content.ToNotificationType<WorkItemChangedEventData>();
+                    Console.WriteLine("WorkItem title: {0}", workItem.Title);
                     break;
             }
         }

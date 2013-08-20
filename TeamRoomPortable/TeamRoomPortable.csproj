@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BasicAuthenticationMessageHandler.cs" />
+    <Compile Include="Notification\WorkItemChangedEventData.cs" />
     <Compile Include="RoomModel\Member.cs" />
     <Compile Include="RoomModel\RoomModelInfo.cs" />
     <Compile Include="RoomModel\RoomModelRootObject.cs" />
